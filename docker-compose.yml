@@ -324,6 +324,8 @@ services:
       SECURITIES_SERVICE_ADDR: securities-service:50060
       ORDER_SERVICE_ADDR: order-service:50061
       PORTFOLIO_SERVICE_ADDR: portfolio-service:50062
+      OTC_SERVICE_ADDR: otc-service:50063
+      FUND_SERVICE_ADDR: fund-service:50064
       JWT_SECRET: ${JWT_SECRET}
       FRONTEND_URL: http://localhost:3000
     depends_on:
@@ -350,6 +352,10 @@ services:
       order-service:
         condition: service_started
       portfolio-service:
+        condition: service_started
+      otc-service:
+        condition: service_started
+      fund-service:
         condition: service_started
     networks: [exbanka-net]
 
@@ -482,6 +488,75 @@ services:
         condition: service_started
     networks: [exbanka-net]
 
+  otc-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: otc_user
+      POSTGRES_PASSWORD: otc_pass
+      POSTGRES_DB: otc_db
+    volumes:
+      - otc-db-data:/var/lib/postgresql/data
+      - ../EXBanka-4-Backend/services/otc-service/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U otc_user -d otc_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [exbanka-net]
+
+  otc-service:
+    build:
+      context: ../EXBanka-4-Backend
+      dockerfile: services/otc-service/Dockerfile
+    environment:
+      OTC_DB_URL: postgres://otc_user:otc_pass@otc-db:5432/otc_db?sslmode=disable
+      EMPLOYEE_DB_URL: postgres://employee_user:employee_pass@employee-db:5432/employee_db?sslmode=disable
+      CLIENT_DB_URL: postgres://client_user:client_pass@client-db:5432/client_db?sslmode=disable
+    depends_on:
+      otc-db:
+        condition: service_healthy
+      employee-db:
+        condition: service_healthy
+      client-db:
+        condition: service_healthy
+    networks: [exbanka-net]
+
+  fund-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: fund_user
+      POSTGRES_PASSWORD: fund_pass
+      POSTGRES_DB: fund_db
+    volumes:
+      - fund-db-data:/var/lib/postgresql/data
+      - ../EXBanka-4-Backend/services/fund-service/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fund_user -d fund_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [exbanka-net]
+
+  fund-service:
+    build:
+      context: ../EXBanka-4-Backend
+      dockerfile: services/fund-service/Dockerfile
+    environment:
+      FUND_DB_URL: postgres://fund_user:fund_pass@fund-db:5432/fund_db?sslmode=disable
+      ACCOUNT_DB_URL: postgres://account_user:account_pass@account-db:5432/account_db?sslmode=disable
+      EMPLOYEE_DB_URL: postgres://employee_user:employee_pass@employee-db:5432/employee_db?sslmode=disable
+      ACCOUNT_SERVICE_ADDR: account-service:50054
+    depends_on:
+      fund-db:
+        condition: service_healthy
+      account-db:
+        condition: service_healthy
+      employee-db:
+        condition: service_healthy
+      account-service:
+        condition: service_started
+    networks: [exbanka-net]
+
   # ────────────────────────────────────────────────────────────
   # Frontend
   # ────────────────────────────────────────────────────────────
@@ -519,4 +594,6 @@ volumes:
   order-db-data:
   securities-db-data:
   portfolio-db-data:
+  otc-db-data:
+  fund-db-data:
   rabbitmq-data:
