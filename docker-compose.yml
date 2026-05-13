@@ -586,7 +586,10 @@ services:
       FUND_DB_URL: postgres://fund_user:fund_pass@fund-db:5432/fund_db?sslmode=disable
       ACCOUNT_DB_URL: postgres://account_user:account_pass@account-db:5432/account_db?sslmode=disable
       EMPLOYEE_DB_URL: postgres://employee_user:employee_pass@employee-db:5432/employee_db?sslmode=disable
+      EXCHANGE_DB_URL: postgres://exchange_user:exchange_pass@exchange-db:5432/exchange_db?sslmode=disable
       ACCOUNT_SERVICE_ADDR: account-service:50054
+      ORDER_SERVICE_ADDR: order-service:50061
+      EXCHANGE_SERVICE_ADDR: exchange-service:50057
     depends_on:
       fund-db:
         condition: service_healthy
@@ -594,7 +597,11 @@ services:
         condition: service_healthy
       employee-db:
         condition: service_healthy
+      exchange-db:
+        condition: service_healthy
       account-service:
+        condition: service_started
+      exchange-service:
         condition: service_started
     networks: [exbanka-net]
 
