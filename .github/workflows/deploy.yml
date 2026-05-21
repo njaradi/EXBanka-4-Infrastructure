@@ -1,0 +1,43 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Apply Kubernetes manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Configure kubectl
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config
+
+      - name: Apply namespace and base config
+        run: |
+          kubectl apply -f k8s/00-namespace.yaml
+          kubectl apply -f k8s/01-secrets.yaml
+          kubectl apply -f k8s/02-configmap.yaml
+
+      - name: Apply databases
+        run: kubectl apply -f k8s/databases/ --recursive
+
+      - name: Apply services
+        run: kubectl apply -f k8s/services/ --recursive
+
+      - name: Apply frontend
+        run: kubectl apply -f k8s/frontend/ --recursive
+
+      - name: Apply autoscaling
+        run: kubectl apply -f k8s/autoscaling/ --recursive
+
+      - name: Apply ingress
+        run: kubectl apply -f k8s/ingress.yaml

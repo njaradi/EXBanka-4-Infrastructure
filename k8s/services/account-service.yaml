@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service
+  namespace: exbanka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-service
+  template:
+    metadata:
+      labels:
+        app: account-service
+    spec:
+      containers:
+        - name: account-service
+          image: ghcr.io/raf-si-2025/exbanka-4-backend/account-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: ACCOUNT_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: account-db-url
+            - name: CLIENT_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: client-db-url
+            - name: EXCHANGE_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: exchange-db-url
+            - name: EMAIL_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: EMAIL_SERVICE_ADDR
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            tcpSocket:
+              port: 50054
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+  namespace: exbanka
+spec:
+  selector:
+    app: account-service
+  ports:
+    - port: 50054
+      targetPort: 50054
