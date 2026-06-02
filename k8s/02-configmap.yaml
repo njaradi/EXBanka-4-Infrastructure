@@ -19,3 +19,4 @@ data:
   OTC_SERVICE_ADDR: "otc-service:50063"
   FUND_SERVICE_ADDR: "fund-service:50064"
   FRONTEND_URL: "http://frontend"
+  API_URL: "https://changeme.example.com/api-gateway"
