@@ -26,6 +26,12 @@ spec:
             limits:
               cpu: "200m"
               memory: "128Mi"
+          env:
+            - name: API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: API_URL
           readinessProbe:
             httpGet:
               path: /
