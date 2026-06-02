@@ -33,11 +33,31 @@ spec:
                 secretKeyRef:
                   name: db-secrets
                   key: employee-db-url
+            - name: EXCHANGE_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: exchange-db-url
             - name: ACCOUNT_SERVICE_ADDR
               valueFrom:
                 configMapKeyRef:
                   name: service-config
                   key: ACCOUNT_SERVICE_ADDR
+            - name: EXCHANGE_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: EXCHANGE_SERVICE_ADDR
+            - name: ORDER_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: ORDER_SERVICE_ADDR
+            - name: SECURITIES_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: SECURITIES_SERVICE_ADDR
           resources:
             requests:
               cpu: "50m"
