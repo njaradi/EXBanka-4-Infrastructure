@@ -679,43 +679,43 @@ spec:
                 requests:
                   storage: 5Gi
   users:
-    - name: account_user
+    - name: account-user
       databases:
         - account_db
-    - name: auth_user
+    - name: auth-user
       databases:
         - auth_db
-    - name: card_user
+    - name: card-user
       databases:
         - card_db
-    - name: client_user
+    - name: client-user
       databases:
         - client_db
-    - name: employee_user
+    - name: employee-user
       databases:
         - employee_db
-    - name: exchange_user
+    - name: exchange-user
       databases:
         - exchange_db
-    - name: fund_user
+    - name: fund-user
       databases:
         - fund_db
-    - name: loan_user
+    - name: loan-user
       databases:
         - loan_db
-    - name: order_user
+    - name: order-user
       databases:
         - order_db
-    - name: otc_user
+    - name: otc-user
       databases:
         - otc_db
-    - name: payment_user
+    - name: payment-user
       databases:
         - payment_db
-    - name: portfolio_user
+    - name: portfolio-user
       databases:
         - portfolio_db
-    - name: securities_user
+    - name: securities-user
       databases:
         - securities_db
   databaseInitSQL:

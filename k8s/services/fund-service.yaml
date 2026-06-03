@@ -21,22 +21,22 @@ spec:
             - name: FUND_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-fund_user
+                  name: exbanka-db-pguser-fund-user
                   key: uri
             - name: ACCOUNT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-account_user
+                  name: exbanka-db-pguser-account-user
                   key: uri
             - name: EMPLOYEE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-employee_user
+                  name: exbanka-db-pguser-employee-user
                   key: uri
             - name: EXCHANGE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-exchange_user
+                  name: exbanka-db-pguser-exchange-user
                   key: uri
             - name: ACCOUNT_SERVICE_ADDR
               valueFrom:

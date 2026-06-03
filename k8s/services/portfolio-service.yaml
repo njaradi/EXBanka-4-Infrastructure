@@ -21,22 +21,22 @@ spec:
             - name: PORTFOLIO_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-portfolio_user
+                  name: exbanka-db-pguser-portfolio-user
                   key: uri
             - name: ACCOUNT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-account_user
+                  name: exbanka-db-pguser-account-user
                   key: uri
             - name: EXCHANGE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-exchange_user
+                  name: exbanka-db-pguser-exchange-user
                   key: uri
             - name: SECURITIES_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-securities_user
+                  name: exbanka-db-pguser-securities-user
                   key: uri
             - name: SECURITIES_SERVICE_ADDR
               valueFrom:

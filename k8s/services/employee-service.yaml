@@ -21,7 +21,7 @@ spec:
             - name: DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-employee_user
+                  name: exbanka-db-pguser-employee-user
                   key: uri
           resources:
             requests:

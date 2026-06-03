@@ -21,17 +21,17 @@ spec:
             - name: LOAN_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-loan_user
+                  name: exbanka-db-pguser-loan-user
                   key: uri
             - name: ACCOUNT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-account_user
+                  name: exbanka-db-pguser-account-user
                   key: uri
             - name: EXCHANGE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-exchange_user
+                  name: exbanka-db-pguser-exchange-user
                   key: uri
             - name: EMAIL_SERVICE_ADDR
               valueFrom:

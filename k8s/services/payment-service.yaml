@@ -21,22 +21,22 @@ spec:
             - name: PAYMENT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-payment_user
+                  name: exbanka-db-pguser-payment-user
                   key: uri
             - name: ACCOUNT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-account_user
+                  name: exbanka-db-pguser-account-user
                   key: uri
             - name: EXCHANGE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-exchange_user
+                  name: exbanka-db-pguser-exchange-user
                   key: uri
             - name: CLIENT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-client_user
+                  name: exbanka-db-pguser-client-user
                   key: uri
             - name: OWN_ROUTING_NUMBER
               valueFrom:

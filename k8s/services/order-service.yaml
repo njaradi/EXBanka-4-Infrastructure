@@ -21,27 +21,27 @@ spec:
             - name: ORDER_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-order_user
+                  name: exbanka-db-pguser-order-user
                   key: uri
             - name: ACCOUNT_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-account_user
+                  name: exbanka-db-pguser-account-user
                   key: uri
             - name: SECURITIES_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-securities_user
+                  name: exbanka-db-pguser-securities-user
                   key: uri
             - name: EXCHANGE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-exchange_user
+                  name: exbanka-db-pguser-exchange-user
                   key: uri
             - name: EMPLOYEE_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: exbanka-db-pguser-employee_user
+                  name: exbanka-db-pguser-employee-user
                   key: uri
             - name: SECURITIES_SERVICE_ADDR
               valueFrom:
