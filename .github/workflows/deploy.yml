@@ -40,4 +40,4 @@ jobs:
         run: kubectl apply -f k8s/autoscaling/ --recursive
 
       - name: Apply ingress
-        run: kubectl apply -f k8s/ingress.yaml
+        run: kubectl apply -f k8s/route.yaml
